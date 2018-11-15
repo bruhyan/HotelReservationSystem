@@ -114,7 +114,7 @@ public class HoRSWebService {
             }
 
             //create unpaid transaction
-            TransactionEntity transaction = new TransactionEntity(totalPrice, null, reservation);
+            TransactionEntity transaction = new TransactionEntity(totalPrice, reservation);
             transaction = transactionControllerLocal.createNewTransaction(transaction);
             reservationControllerLocal.addTransaction(reservation.getReservationId(), transaction);
 

@@ -48,6 +48,15 @@ public class TransactionEntity implements Serializable {
         this.reservation = reservation;
         
     }
+    
+    //use this for partner
+    public TransactionEntity(BigDecimal totalCost, ReservationEntity reservation) {
+        this();
+        this.totalCost = totalCost;
+        this.reservation = reservation;
+    }
+    
+    
 
     public BigDecimal getTotalCost() {
         return totalCost;

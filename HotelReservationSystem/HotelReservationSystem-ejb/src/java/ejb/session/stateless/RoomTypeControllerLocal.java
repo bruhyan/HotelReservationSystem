@@ -55,4 +55,6 @@ public interface RoomTypeControllerLocal {
     public List<RoomTypeEntity> retrieveRoomTypeByRanking();
 
     public void updateRoomRank(int rank, Long roomTypeId);
+    
+    public void deleteAllDisabledRoomType();
 }

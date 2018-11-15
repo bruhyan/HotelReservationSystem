@@ -21,10 +21,6 @@ public interface RoomControllerRemote {
 
     public RoomEntity retrieveRoomById(Long id);
 
-    public RoomEntity heavyUpdateRoom(Long id, int roomNumber, RoomStatus newRoomStatus, long bookingId, long roomTypeId);
-
-    public RoomEntity heavyUpdateRoom(Long id, int roomNumber, RoomStatus newRoomStatus, long roomTypeId);
-
     public void deleteRoomById(Long id);
     
     public boolean checkAvailabilityOfRoomByRoomTypeId(Long RoomTypeId, Date checkInDate);
@@ -36,5 +32,11 @@ public interface RoomControllerRemote {
     public void changeRoomStatus(Long roomEntityId, RoomStatus status);
 
     public void changeIsReserved(Long roomId, boolean value);
+
+    public RoomEntity heavyUpdateRoom(Long id, int roomNumber, RoomStatus newRoomStatus, long bookingId, long roomTypeId, boolean isDisabled);
+
+    public RoomEntity heavyUpdateRoom(Long id, int roomNumber, RoomStatus newRoomStatus, long roomTypeId, boolean isDisabled);
+
+    public void deleteAllDisabledRooms();
     
 }

@@ -58,7 +58,38 @@
 </xs:sequence>
 </xs:complexType>
 
+<<<<<<< HEAD:HotelReservationSystem/HolidayReservationSystem/xml-resources/web-service-references/HoRSWebService/wsdl/localhost_8080/HoRSWebService/HoRSWebService.xsd_1.xsd
 <xs:complexType name="partnerSearchRoom">
+=======
+<xs:complexType name="viewPartnerReservationDetails">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="reservationId" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="viewPartnerReservationDetailsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:reservationEntity" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reservationEntity">
+<xs:sequence>
+<xs:element name="checkInDateTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="checkOutDateTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="dateOfReservation" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="numOfGuests" type="xs:int" minOccurs="0"/>
+<xs:element name="partner" type="tns:partnerEntity" minOccurs="0"/>
+<xs:element name="reservationId" type="xs:long" minOccurs="0"/>
+<xs:element name="reservationType" type="tns:reservationType" minOccurs="0"/>
+<xs:element name="showedUp" type="xs:boolean" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="partnerEntity">
+>>>>>>> ffbc205f319a2ba6dbd40c9cdeff306f40c9f082:HotelReservationSystem/HolidayReservationSystem/xml-resources/web-service-references/HoRSWebService/wsdl/localhost_8080/HoRSWebService/HoRSWebService.xsd_1.xsd
 <xs:sequence>
 <xs:element name="email" type="xs:string" minOccurs="0"/>
 <xs:element name="password" type="xs:string" minOccurs="0"/>
@@ -67,6 +98,7 @@
 </xs:sequence>
 </xs:complexType>
 
+<<<<<<< HEAD:HotelReservationSystem/HolidayReservationSystem/xml-resources/web-service-references/HoRSWebService/wsdl/localhost_8080/HoRSWebService/HoRSWebService.xsd_1.xsd
 <xs:complexType name="partnerSearchRoomResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:roomTypeEntity" minOccurs="0" maxOccurs="unbounded"/>
@@ -82,14 +114,18 @@
 <xs:complexType name="viewPartnerReservationDetails">
 <xs:sequence>
 <xs:element name="email" type="xs:string" minOccurs="0"/>
-<xs:element name="password" type="xs:string" minOccurs="0"/>
-<xs:element name="reservationId" type="xs:long" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="viewPartnerReservationDetailsResponse">
+=======
+<xs:complexType name="customerEntity">
 <xs:sequence>
-<xs:element name="return" type="tns:reservationEntity" minOccurs="0"/>
+<xs:element name="contactNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="customerId" type="xs:long" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+<xs:element name="partner" type="tns:partnerEntity" minOccurs="0"/>
+>>>>>>> ffbc205f319a2ba6dbd40c9cdeff306f40c9f082:HotelReservationSystem/HolidayReservationSystem/xml-resources/web-service-references/HoRSWebService/wsdl/localhost_8080/HoRSWebService/HoRSWebService.xsd_1.xsd
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="reservations" type="tns:reservationEntity" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -149,6 +185,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="calculateTotalPrice">
+<xs:sequence>
+<xs:element name="roomTypes" type="tns:roomTypeEntity" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="nights" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="calculateTotalPriceResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:decimal" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="partnerReserveRoom">
 <xs:sequence>
 <xs:element name="email" type="xs:string" minOccurs="0"/>
@@ -163,19 +212,6 @@
 <xs:complexType name="partnerReserveRoomResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:reservationEntity" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="calculateTotalPrice">
-<xs:sequence>
-<xs:element name="roomTypes" type="tns:roomTypeEntity" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="nights" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="calculateTotalPriceResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:decimal" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

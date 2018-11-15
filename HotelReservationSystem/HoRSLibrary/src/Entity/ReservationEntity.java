@@ -91,7 +91,7 @@ public class ReservationEntity implements Serializable {
         this.dateOfReservation = dateOfReservation;
     }
 
-    @XmlTransient
+    //@XmlTransient
     public Date getCheckInDateTime() {
         return checkInDateTime;
     }

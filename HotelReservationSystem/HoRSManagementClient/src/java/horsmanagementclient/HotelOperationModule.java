@@ -366,27 +366,57 @@ public class HotelOperationModule {
         System.out.println("Enter new room number: ( previous: " + room.getRoomNumber() + " ) \n");
         System.out.print(">");
         int roomNumber = sc.nextInt();
-        System.out.println("Set room status :  1. Available 2. Occupied 3. Reserved ( previous: " + String.valueOf(room.getRoomStatus()) + " ) \n");
+        System.out.println("Set room status :  1. Available 2. Occupied ( previous: " + String.valueOf(room.getRoomStatus()) + " ) \n");
         System.out.print(">");
 
         int roomStatus = 0;
-        while (roomStatus < 1 || roomStatus > 3) {
+        while (roomStatus < 1 || roomStatus > 2) {
             roomStatus = sc.nextInt();
-            if (roomStatus > 3 || roomStatus < 1) {
+            if (roomStatus > 2 || roomStatus < 1) {
                 System.out.println("Invalid input! Please try again.");
             }
         }
         RoomStatus newRoomStatus = RoomStatus.values()[roomStatus - 1];
 
-        Long bookingId = selectBookingId(sc);
-
+        int inputBooking = 0;
+        System.out.println("Would you like to assign a booking to this room? 1. Yes 2. No");
+        while (inputBooking < 1 || inputBooking > 2) {
+            inputBooking = sc.nextInt();
+            if (inputBooking > 2 || inputBooking < 1) {
+                System.out.println("Invalid input! Please try again.");
+            }
+        }
+        Long bookingId = null;
+        if (inputBooking == 1) {
+            bookingId = selectBookingId(sc);
+        }
         Long roomTypeId = selectRoomType(sc);
 
-        if (bookingId == null) {
-            RoomEntity newRoom = roomControllerRemote.heavyUpdateRoom(room.getRoomId(), roomNumber, newRoomStatus, roomTypeId);
-        } else {
-            RoomEntity newRoom = roomControllerRemote.heavyUpdateRoom(room.getRoomId(), roomNumber, newRoomStatus, bookingId, roomTypeId);
+        boolean isDisabled = room.getIsDisabled();
+
+        System.out.println("Set room disabled or not :  1. Disable 2. Enable ( is disabled: " + (room.getIsDisabled()) + " ) \n");
+        System.out.print(">");
+
+        int inputDisabled = 0;
+        while (inputDisabled < 1 || inputDisabled > 2) {
+            inputDisabled = sc.nextInt();
+            if (inputDisabled > 2 || inputDisabled < 1) {
+                System.out.println("Invalid input! Please try again.");
+            }
         }
+
+        if (inputDisabled == 2) {
+            isDisabled = false;
+        } else if (inputDisabled == 1) {
+            isDisabled = true;
+        }
+
+        if (bookingId == null) {
+            RoomEntity newRoom = roomControllerRemote.heavyUpdateRoom(room.getRoomId(), roomNumber, newRoomStatus, roomTypeId, isDisabled);
+        } else {
+            RoomEntity newRoom = roomControllerRemote.heavyUpdateRoom(room.getRoomId(), roomNumber, newRoomStatus, bookingId, roomTypeId, isDisabled);
+        }
+
         System.out.println("Room has been updated!");
     }
 
@@ -430,14 +460,14 @@ public class HotelOperationModule {
     }
 
     public void doViewRoomAllocationExceptionReport() {
-        try{
-        List<RoomAllocationException> exceptionList = roomAllocationExceptionControllerRemote.retrieveTodayException();
-        List<String> exceptions = exceptionList.get(0).getExceptions();
+        try {
+            List<RoomAllocationException> exceptionList = roomAllocationExceptionControllerRemote.retrieveTodayException();
+            List<String> exceptions = exceptionList.get(0).getExceptions();
 
-        for (String exception : exceptions) {
-            System.out.println(exception);
-        }
-        }catch(ArrayIndexOutOfBoundsException ex){
+            for (String exception : exceptions) {
+                System.out.println(exception);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Sorry you have no exception reports yet!");
         }
     }

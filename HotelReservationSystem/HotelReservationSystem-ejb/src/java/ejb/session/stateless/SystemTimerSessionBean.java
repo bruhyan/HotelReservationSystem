@@ -108,6 +108,7 @@ public class SystemTimerSessionBean implements SystemTimerSessionBeanRemote, Sys
         //sets to isReserved
 
         booking.setRoom(room);
+        room.setBooking(booking);
 
     }
 
@@ -131,6 +132,7 @@ public class SystemTimerSessionBean implements SystemTimerSessionBeanRemote, Sys
         RoomEntity room = roomControllerLocal.allocateRoom(upgradedId);
 
         booking.setRoom(room);
+        room.setBooking(booking);
 
         System.out.println("Booking id : " + booking.getBookingId() + "'s room type have been upgraded from " + oldRoomType.getRoomTypeName() + " to " + roomType.getRoomTypeName() + "."); //Use case 16
         exception.getExceptions().add("Booking id : " + booking.getBookingId() + "'s room type have been upgraded from " + oldRoomType.getRoomTypeName() + " to " + roomType.getRoomTypeName() + ".");

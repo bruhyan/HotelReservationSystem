@@ -5,6 +5,7 @@
     <client name="HoRSWebService">
       <wsdl-url>http://localhost:8080/HoRSWebService/HoRSWebService?wsdl</wsdl-url>
       <local-wsdl-file>localhost_8080/HoRSWebService/HoRSWebService.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">ws.session.holiday</package-name>
       <package-name forceReplace="true">holidayreservationsystem</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -34,7 +35,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>holidayreservationsystem</wsimport-option-value>
+          <wsimport-option-value>ws.session.holiday</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

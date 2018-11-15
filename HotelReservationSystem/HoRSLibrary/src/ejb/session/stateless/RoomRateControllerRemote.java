@@ -33,4 +33,6 @@ public interface RoomRateControllerRemote {
     public RoomRatesEntity retriveRoomRateByRateType(RateType rateType);
     
     public List<RoomRatesEntity> retrieveCompulsoryRoomRatesList();
+
+    public void deleteAllDisabledRoomRates();
 }

@@ -30,4 +30,6 @@ public interface RoomRateControllerLocal {
     public List<RoomRatesEntity> retrieveRoomRateListExcludeRoomType(Long roomTypeId);
 
     public RoomRatesEntity retriveRoomRateByRateType(RateType rateType);
+    
+    public void deleteAllDisabledRoomRates();
 }

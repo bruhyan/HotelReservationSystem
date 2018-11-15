@@ -71,7 +71,7 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
     }
 
     public int getLowestRank() {
-        Query query = em.createQuery("SELECT r.ranking FROM RoomTypeEntity r ORDER BY r.ranking DESC");
+        Query query = em.createQuery("SELECT r.ranking FROM RoomTypeEntity r WHERE r.isDisabled = false ORDER BY r.ranking DESC");
         return query.getFirstResult();
     }
 
@@ -133,14 +133,16 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
 
     public void deleteRoomTypeById(long id) {
         RoomTypeEntity roomType = retrieveRoomTypeById(id);
+        int rank = roomType.getRanking();
+        
+        List<RoomTypeEntity> roomTypes = getRoomTypeListToAdjust(rank + 1);
+        for(RoomTypeEntity roomTypeNew : roomTypes){
+            roomTypeNew.setRanking(roomTypeNew.getRanking()-1);
+        }
         //call room controller local to find list by Type
         List<RoomEntity> roomList = roomControllerLocal.retrieveRoomListByTypeId(id); //this is returning null. Maybe EJB cannot call other ejb this way?
         if (!roomList.isEmpty()) {
             //set all to be disabled
-            for (RoomEntity room : roomList) {
-                room.setIsDisabled(true);
-                //roomControllerLocal.updateRoom(room);
-            }
             //set roomType to be disabled as well.
             roomType.setIsDisabled(true);
 
@@ -170,6 +172,7 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
 
     }
 
+    //Not used
     @Override
     public List<RoomTypeEntity> retrieveRoomTypeListByRates(RoomRatesEntity roomRates) {
         Long roomRateId = roomRates.getRoomRatesId();
@@ -180,6 +183,7 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
 
     }
 
+    //Not used
     @Override
     public List<RoomEntity> retrieveRoomEntityByRoomType(RoomTypeEntity roomType) {
         Long roomTypeId = roomType.getRoomTypeId();
@@ -371,7 +375,7 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
     }
 
     public List<RoomTypeEntity> retrieveRoomTypeByRanking() {
-        Query query = em.createQuery("SELECT r FROM RoomTypeEntity r ORDER BY r.ranking ASC");
+        Query query = em.createQuery("SELECT r FROM RoomTypeEntity r ORDER BY r.ranking ASC ");
         return query.getResultList();
     }
 
@@ -458,6 +462,15 @@ public class RoomTypeController implements RoomTypeControllerRemote, RoomTypeCon
 
         return query.getResultList();
 
+    }
+    
+    @Override
+    public void deleteAllDisabledRoomType() {
+        Query query = em.createQuery("SELECT r FROM RoomTypeEntity r WHERE r.isDisabled = true");
+        List<RoomTypeEntity> roomTypes = query.getResultList();
+        for(RoomTypeEntity room : roomTypes) {
+            em.remove(room);
+        }
     }
 
 }

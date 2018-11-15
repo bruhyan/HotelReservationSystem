@@ -48,4 +48,6 @@ public interface RoomTypeControllerRemote {
     public List<RoomTypeEntity> retrieveRoomTypeByRanking();
 
     public void updateRoomRank(int rank, Long roomTypeId);
+
+    public void deleteAllDisabledRoomType();
 }

@@ -19,6 +19,12 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import ws.session.holiday.NoReservationFoundException_Exception;
+import ws.session.holiday.PartnerEntity;
+import ws.session.holiday.PartnerNotFoundException;
+import ws.session.holiday.PartnerNotFoundException_Exception;
+import ws.session.holiday.ReservationEntity;
+import ws.session.holiday.RoomTypeEntity;
 
 /**
  *
@@ -183,7 +189,7 @@ public class MainApp {
         } catch (PartnerNotFoundException_Exception ex) {
             System.out.println("Sorry, the credentials you have typed are either invalid or no such partner exist! \n");
         } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -247,42 +253,46 @@ public class MainApp {
 
     }
 
-    private static holidayreservationsystem.PartnerEntity partnerLogin(java.lang.String email, java.lang.String password) throws PartnerNotFoundException_Exception {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
+    private static BigDecimal calculateTotalPrice(java.util.List<ws.session.holiday.RoomTypeEntity> roomTypes, int nights) {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
+        return port.calculateTotalPrice(roomTypes, nights);
+    }
+
+    private static java.util.List<ws.session.holiday.RoomTypeEntity> getAvailableRoomTypes(javax.xml.datatype.XMLGregorianCalendar checkInDate) {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
+        return port.getAvailableRoomTypes(checkInDate);
+    }
+
+    private static PartnerEntity partnerLogin(java.lang.String email, java.lang.String password) throws PartnerNotFoundException_Exception {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
         return port.partnerLogin(email, password);
     }
 
-
-    private static java.util.List<holidayreservationsystem.RoomTypeEntity> partnerSearchRoom(java.lang.String email, java.lang.String password, javax.xml.datatype.XMLGregorianCalendar checkInDate, javax.xml.datatype.XMLGregorianCalendar checkOutDate) throws PartnerNotFoundException_Exception {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
-        return port.partnerSearchRoom(email, password, checkInDate, checkOutDate);
-    }
-
-    private static ReservationEntity partnerReserveRoom(java.lang.String email, java.lang.String password, javax.xml.datatype.XMLGregorianCalendar checkInDate, javax.xml.datatype.XMLGregorianCalendar checkOutDate, java.util.List<holidayreservationsystem.RoomTypeEntity> desiredRoomTypes, int nights) throws PartnerNotFoundException_Exception {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
+    private static ReservationEntity partnerReserveRoom(java.lang.String email, java.lang.String password, javax.xml.datatype.XMLGregorianCalendar checkInDate, javax.xml.datatype.XMLGregorianCalendar checkOutDate, java.util.List<ws.session.holiday.RoomTypeEntity> desiredRoomTypes, int nights) throws PartnerNotFoundException_Exception {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
         return port.partnerReserveRoom(email, password, checkInDate, checkOutDate, desiredRoomTypes, nights);
     }
 
-    
-    private static ReservationEntity viewPartnerReservationDetails(java.lang.String email, java.lang.String password, java.lang.Long reservationId) throws PartnerNotFoundException_Exception, NoReservationFoundException_Exception {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
-        return port.viewPartnerReservationDetails(email, password, reservationId);
+    private static java.util.List<ws.session.holiday.RoomTypeEntity> partnerSearchRoom(java.lang.String email, java.lang.String password, javax.xml.datatype.XMLGregorianCalendar checkInDate, javax.xml.datatype.XMLGregorianCalendar checkOutDate) throws PartnerNotFoundException_Exception {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
+        return port.partnerSearchRoom(email, password, checkInDate, checkOutDate);
     }
 
-    private static java.util.List<holidayreservationsystem.ReservationEntity> viewAllPartnerReservations(java.lang.String email, java.lang.String password) throws NoReservationFoundException_Exception, PartnerNotFoundException_Exception {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
+    private static java.util.List<ws.session.holiday.ReservationEntity> viewAllPartnerReservations(java.lang.String email, java.lang.String password) throws PartnerNotFoundException_Exception, NoReservationFoundException_Exception {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
         return port.viewAllPartnerReservations(email, password);
     }
 
-    private static BigDecimal calculateTotalPrice(java.util.List<holidayreservationsystem.RoomTypeEntity> roomTypes, int nights) {
-        holidayreservationsystem.HoRSWebService_Service service = new holidayreservationsystem.HoRSWebService_Service();
-        holidayreservationsystem.HoRSWebService port = service.getHoRSWebServicePort();
-        return port.calculateTotalPrice(roomTypes, nights);
+    private static ReservationEntity viewPartnerReservationDetails(java.lang.String email, java.lang.String password, java.lang.Long reservationId) throws PartnerNotFoundException_Exception, NoReservationFoundException_Exception {
+        ws.session.holiday.HoRSWebService_Service service = new ws.session.holiday.HoRSWebService_Service();
+        ws.session.holiday.HoRSWebService port = service.getHoRSWebServicePort();
+        return port.viewPartnerReservationDetails(email, password, reservationId);
     }
 
 

@@ -140,4 +140,12 @@ public class RoomRateController implements RoomRateControllerRemote, RoomRateCon
 //        return query.getResultList();
 //        
 //    }
+    
+    public void deleteAllDisabledRoomRates() {
+        Query query = em.createQuery("SELECT r FROM RoomRatesEntity r WHERE r.isDisabled = true");
+        List<RoomRatesEntity> roomRates = query.getResultList();
+        for(RoomRatesEntity roomRate : roomRates) {
+            em.remove(roomRate);
+        }
+    }
 }
