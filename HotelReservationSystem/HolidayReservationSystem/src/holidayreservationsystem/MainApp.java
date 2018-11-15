@@ -207,7 +207,7 @@ public class MainApp {
             System.out.println("Your Reservation details are as follows : \n");
             System.out.println("Reservation ID: " + reservationId);
             System.out.println("Date of Reservation: " + reservation.getDateOfReservation());
-            System.out.println("Check in Date & Time : " + reservation.getCheckInDateTime());
+            //System.out.println("Check in Date & Time : " + reservation.getCheckInDateTime());
             System.out.println("Check out Date & Time : " + reservation.getCheckOutDateTime());
             System.out.println("Reservation Type: " + reservation.getReservationType());
 

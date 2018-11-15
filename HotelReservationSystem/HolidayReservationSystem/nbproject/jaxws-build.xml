@@ -18,8 +18,8 @@
     </target>
     <target name="wsimport-client-HoRSWebService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/HoRSWebService"/>
-        <property name="wsdl-HoRSWebService" location="xml-resources/web-service-references/HoRSWebService/wsdl/pereirabeastypc_8080/HoRSWebService/HoRSWebService.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/HoRSWebService" destdir="${build.generated.dir}/jax-wsCache/HoRSWebService" wsdl="${wsdl-HoRSWebService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://pereirabeastypc:8080/HoRSWebService/HoRSWebService?wsdl" xnocompile="true" xendorsed="true" package="holidayreservationsystem">
+        <property name="wsdl-HoRSWebService" location="xml-resources/web-service-references/HoRSWebService/wsdl/localhost_8080/HoRSWebService/HoRSWebService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/HoRSWebService" destdir="${build.generated.dir}/jax-wsCache/HoRSWebService" wsdl="${wsdl-HoRSWebService}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/HoRSWebService/HoRSWebService?wsdl" xnocompile="true" xendorsed="true" package="holidayreservationsystem">
             <depends file="${wsdl-HoRSWebService}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/HoRSWebService"/>
         </wsimport>
